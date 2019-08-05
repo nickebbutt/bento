@@ -1,4 +1,8 @@
 language: generic
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y virtualbox
+  - sudo apt-get install -y packer
 script: ./build-ubuntu-dev.sh
 deploy:
   skip_cleanup: true      #Otherwise travis blats the distribution before we upload it  
