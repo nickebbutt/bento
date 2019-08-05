@@ -23,7 +23,7 @@ echo "vagrant user created" >> /tmp/s99log
 
 # set up ssh
 mkdir /home/vagrant/.ssh
-/usr/sfw/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub' -O /home/vagrant/.ssh/authorized_keys
+/usr/sfw/bin/wget --no-check-certificate 'https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub' -O /home/vagrant/.ssh/authorized_keys
 chown -R vagrant /home/vagrant/.ssh
 chmod -R go-rwsx /home/vagrant/.ssh
 
