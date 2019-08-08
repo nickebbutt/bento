@@ -26,3 +26,10 @@ apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   dos2unix \
   docker.io \
   docker-compose 
+  
+  
+# Install ubuntu desktop and virtual box additions  
+apt-get install -y ubuntu-desktop 
+sed -i 's/allowed_users=.*$/allowed_users=anybody/' /etc/X11/Xwrapper.config
+
+echo "Installed tools"
