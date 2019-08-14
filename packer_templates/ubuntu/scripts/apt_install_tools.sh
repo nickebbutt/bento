@@ -1,16 +1,12 @@
 #!/bin/sh -eux
 
 exitOnError() {
-    exit_code=$1
-    last_command=${@:2}
-    if [ $exit_code -ne 0 ]; then
-        >&2 echo "\"${last_command}\" command failed with exit code ${exit_code}."
-        exit $exit_code
-    fi
+  if [ $? -ne 0 ] ; then
+    returnCode=$?
+    echo "Failed during command $1"
+    exit returnCode
+  fi
 }
-
-# enable !! command completion
-set -o history -o histexpand
 
 apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   vim \
@@ -39,23 +35,23 @@ apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   dos2unix \
   docker.io \
   docker-compose 
-exitOnError $? !!
+exitOnError "apt-get install tools"
   
 # Install ubuntu desktop and virtual box additions  
 apt-get install -y ubuntu-desktop 
-exitOnError $? !!
+exitOnError "apt-get install ubuntu-desktop"
 sed -i 's/allowed_users=.*$/allowed_users=anybody/' /etc/X11/Xwrapper.config
-exitOnError $? !!
+exitOnError "amend allowed users"
 
 # Install chrome
 CHROME_PKGNAME=google-chrome-stable_current_amd64.deb
 wget https://dl.google.com/linux/direct/${CHROME_PKGNAME}
-exitOnError $? !!
+exitOnError "download chrome"
 dpkg -i ${CHROME_PKGNAME}
-exitOnError $? !!
+exitOnError "install chrome"
 rm ${CHROME_PKGNAME}
 
 apt-get install -y openjdk-11-jdk
-exitOnError $? !!
+exitOnError "install openjdk-11-jdk"
 
 echo "Finished installing tools"
